@@ -2,4 +2,4 @@
 
 ## Descripción
 
-Repositorio del TPI de Programación II. Hacer fork del repostorio y completar siguiendo las consigas del TPI publicadas en el CVG.
+Trabajo practico hecho por Thomás Ledesma e Ivan Porcari
