@@ -1,7 +1,8 @@
 # Trabajo Práctico I - Programación II
 
 
-import os, libro
+import os
+from bibloteca import *
 
 print("Bienvenido!")
 respuesta = ''
@@ -20,25 +21,11 @@ while respuesta != "salir":
     os.system ("cls") #Limpiar pantalla
     if opt.isnumeric():
         if int(opt) == 1:
-            codigo = input("ingrese el codigo del libro: ")
-            for ejemplar in libro.libros:
-                if(codigo == ejemplar['cod']):    
-                    print(f"libro: {ejemplar['titulo']}")
-                    print(f"autor: {ejemplar['autor']}")
-                    print(f"ejemplares disponibles: {ejemplar['cant_ej_ad']}\n")
-                    if(ejemplar["cant_ej_ad"] > 0):
-                        ejemplar["cant_ej_ad"] -= 1
-                        ejemplar["cant_ej_pr"] += 1
-                        print("prestamo realizado con exito")
-                    else:
-                        print("no hay ejemplares disponibles")
-                    break
+            prestar_ejemplar_libro()
         elif int(opt) == 2:
-            #completar
-            print()
+            devolver_ejemplar_libro()
         elif int(opt) == 3:
-            #completar
-            libro.nuevo_libro()
+            registrar_nuevo_libro()
         elif int(opt) == 4:
             #completar
             print()
