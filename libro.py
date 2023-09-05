@@ -8,6 +8,3 @@ def generar_codigo():
     #completar
     return cod_generator.generar()
 
-def nuevo_libro():
-    
-    return None
