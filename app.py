@@ -3,6 +3,7 @@
 
 import os
 from bibloteca import *
+from libro import *
 
 print("Bienvenido!")
 respuesta = ''
@@ -20,18 +21,16 @@ while respuesta != "salir":
     opt = input("\n Ingrese la opción de menú: ")
     os.system ("cls") #Limpiar pantalla
     if opt.isnumeric():
-        if int(opt) == 1:
+        if int(opt) == 1: #Gestion de prestamo
             prestar_ejemplar_libro()
         elif int(opt) == 2:
-            devolver_ejemplar_libro()
+            devolver_ejemplar_libro() #Devolucion de libro
         elif int(opt) == 3:
-            registrar_nuevo_libro()
+            registrar_nuevo_libro() #Registrar nuevo libro
         elif int(opt) == 4:
-            #completar
-            print()
+            eliminar_ejemplar_libro() #Eliminar ejemplar
         elif int(opt) == 5:
-            #completar
-            print()
+            ejemplares_prestados() #Mostrar listado de ejemplares prestados
         elif int(opt) == 6:
             respuesta = "salir"
         else: print("Ingrese una opción válida")

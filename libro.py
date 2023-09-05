@@ -7,3 +7,7 @@ libro3 = {'cod': 'adOd09UE', 'cant_ej_ad': 1, 'cant_ej_pr': 0, "titulo": "El có
 def generar_codigo():
     #completar
     return cod_generator.generar()
+
+def nuevo_libro():
+    
+    return None
