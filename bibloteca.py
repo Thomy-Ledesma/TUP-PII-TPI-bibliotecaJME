@@ -32,8 +32,10 @@ def eliminar_ejemplar_libro(): #Eliminar ejemplar
                 print("Se ha borrado el ejemplar")
             else:
                 print("No hay ejemplares para borrar")
-        else:
-            print("Libro no encontrado o no hay ejemplares disponibles")
+            
+            return None
+    print("Libro no encontrado o no hay ejemplares disponibles")
+    return None
 
     
 
