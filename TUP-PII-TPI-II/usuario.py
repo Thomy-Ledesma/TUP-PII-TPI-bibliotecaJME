@@ -1,7 +1,4 @@
-from estudiante import *
-from profesor import *
-
-class Usuario(Estudiante, Profesor): #super clase, recibirá como herencia Estudiante y Profesor
+class Usuario(): #super clase, Estudiante y Profesor heredarán Usuario
     def __init__(self, nombre: str, apellido: str, email: str, contrasena: str):
         self.__nombre = nombre
         self.__apellido = apellido
@@ -37,23 +34,18 @@ class Usuario(Estudiante, Profesor): #super clase, recibirá como herencia Estud
         self.__email = nuevo_email
         
     @contrasena.setter
-    def apellido(self, nueva_contrasena: str):
+    def contrasena(self, nueva_contrasena: str):
         self.__contrasena = nueva_contrasena
+        
+        
+    def __str__(self):
+        return f"Nombre: {self.__nombre}, Apellido: {self.__apellido}, Email: {self.__email}"
         
     def validar_credenciales(self, email: str, contrasena: str) -> bool:
         if self.__email == email and self.__contrasena == contrasena:
             return True
         return False
-    
-estudiantes = [
-    Estudiante("Ivan", "Porcari", "ivanporcari@gmail.com", "ivan1993", "5050", "2023"),
-    Estudiante("Jordan", "Pradenas", "jordanpradenas@gmail.com", "jordan1993", "5051", "2023"),
-    Estudiante("Thomas", "Ledesma", "thomasledesma@gmail.com", "thomas1993", "5052", "2023")
-]
 
-profesores = [
-    Profesor("Jesica", "Rodriguez", "jesicarodriguez@gmail.com", "jesica1986", "Ingenieria Quimica", "2015"),
-    Profesor("Esteban", "Perez", "estebanperez@gmail.com", "esteban1986", "Ingenieria Electrica", "2009")
-]
+
 
 carreras = ["Tecnicatura en Programacion"]
