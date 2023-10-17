@@ -5,6 +5,7 @@ class Profesor(Usuario):
         super().__init__(nombre, apellido, email, contrasena)
         self.__titulo = titulo
         self.__anio_egreso = anio_egreso
+        self.cursos = []
         
     @property
     def titulo(self):

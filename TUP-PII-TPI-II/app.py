@@ -32,7 +32,8 @@ def ingresar_estudiante(estudiantes):
                 if opcion.isnumeric():
                     if int(opcion) == 1:
                         nuevo_curso = matricularse_a_un_curso(estudiante_encontrado)
-                        estudiante_encontrado.cursos.append(nuevo_curso)
+                        if nuevo_curso != None:
+                            estudiante_encontrado.cursos.append(nuevo_curso)
                         print(estudiantes[2].cursos)
                     elif int(opcion) == 2:
                         ver_cursos()
@@ -95,8 +96,10 @@ def ver_cursos(usuario = None):
     if usuario != None:
         curso_inscripcion = input("Seleccione el curso a inscribirse: ")
         if curso_inscripcion.isnumeric():
-            if int(curso_inscripcion) in range(1, len(carreras_lista) + 1):
-                input(carrera[int(curso_inscripcion) - 1])
+            if int(curso_inscripcion) in range(1, len(carrera) + 1):
+                if(carrera[int(curso_inscripcion) - 1] in usuario.cursos):
+                    print("El usuario ya se encuentra en este curso")
+                    return None
                 return carrera[int(curso_inscripcion) - 1]
             else:
                 print("Opción fuera de rango")

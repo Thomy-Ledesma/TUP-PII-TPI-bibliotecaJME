@@ -3,6 +3,4 @@ cursos = {
     "Ingenieria en sistemas" : ["Proximamente... ;)"]
 }
 
-for carreras in list(cursos.keys()):
-    print(f'\n{carreras}')
 
