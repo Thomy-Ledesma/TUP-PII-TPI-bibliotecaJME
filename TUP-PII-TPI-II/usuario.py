@@ -1,4 +1,6 @@
-class Usuario(): #super clase, Estudiante y Profesor heredarán Usuario
+from abc import ABC, abstractmethod
+
+class Usuario(ABC): #super clase, Estudiante y Profesor heredarán Usuario
     def __init__(self, nombre: str, apellido: str, email: str, contrasena: str):
         self.__nombre = nombre
         self.__apellido = apellido
@@ -37,9 +39,9 @@ class Usuario(): #super clase, Estudiante y Profesor heredarán Usuario
     def contrasena(self, nueva_contrasena: str):
         self.__contrasena = nueva_contrasena
         
-        
+    @abstractmethod   
     def __str__(self):
-        return f"Nombre: {self.__nombre}, Apellido: {self.__apellido}, Email: {self.__email}"
+        return f" Nombre: {self.__nombre}\n Apellido: {self.__apellido}\n Email: {self.__email}"
         
     def validar_credenciales(self, email: str, contrasena: str) -> bool:
         if self.__email == email and self.__contrasena == contrasena:
@@ -47,5 +49,3 @@ class Usuario(): #super clase, Estudiante y Profesor heredarán Usuario
         return False
 
 
-
-carreras = ["Tecnicatura en Programacion"]

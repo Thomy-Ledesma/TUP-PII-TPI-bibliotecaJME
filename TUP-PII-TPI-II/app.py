@@ -2,6 +2,7 @@ from usuario import *
 from estudiante import *
 from profesor import *
 from curso import *
+import os
 
 def ingresar_estudiante(estudiantes):
     
@@ -30,7 +31,9 @@ def ingresar_estudiante(estudiantes):
                 opcion = input("Ingrese una opción del menú: ")
                 if opcion.isnumeric():
                     if int(opcion) == 1:
-                        matricularse_a_un_curso()
+                        nuevo_curso = matricularse_a_un_curso(estudiante_encontrado)
+                        estudiante_encontrado.cursos.append(nuevo_curso)
+                        print(estudiantes[2].cursos)
                     elif int(opcion) == 2:
                         ver_cursos()
                     elif int(opcion) == 3:
@@ -73,11 +76,41 @@ def ingresar_profesor(profesores):
         
 
 
-def ver_cursos():
-    pass
+def ver_cursos(usuario = None):
+    i = 0
+    os.system ("cls") #Limpiar pantalla
+    carreras_lista = list(cursos.keys())
+    for carreras in carreras_lista:
+        print(f'\n{i + 1} - {carreras}')
+        i += 1
+    print("\n")
+    carrera = int(input("Seleccione la carrera: "))
+    carrera = cursos[carreras_lista[carrera - 1]]
+    carrera.sort()
+    os.system ("cls") #Limpiar pantalla
+    i = 0
+    for materias in carrera:
+        print(f'{i+1} - {materias} \n')
+        i += 1
+    if usuario != None:
+        curso_inscripcion = input("Seleccione el curso a inscribirse: ")
+        if curso_inscripcion.isnumeric():
+            if int(curso_inscripcion) in range(1, len(carreras_lista) + 1):
+                input(carrera[int(curso_inscripcion) - 1])
+                return carrera[int(curso_inscripcion) - 1]
+            else:
+                print("Opción fuera de rango")
+        else:
+            print("Opción no numerica")
 
-def matricularse_a_un_curso():
-    pass
+
+
+
+
+
+
+def matricularse_a_un_curso(alumno):
+    return ver_cursos(alumno)
 
 
 

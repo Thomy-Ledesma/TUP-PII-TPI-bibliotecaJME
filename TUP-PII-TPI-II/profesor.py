@@ -14,6 +14,9 @@ class Profesor(Usuario):
     def anio_egreso(self):
         return self.__anio_egreso
     
+       
+    def __str__(self):
+        return f" Nombre: {self.__nombre}\n Apellido: {self.__apellido}\n Email: {self.__email}"
     
 profesores = [
     Profesor("Jesica", "Rodriguez", "jesicarodriguez@gmail.com", "jesica1986", "Ingenieria Quimica", 2015),
