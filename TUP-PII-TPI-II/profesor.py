@@ -1,4 +1,4 @@
-from usuario import Usuario
+from usuario import *
 
 class Profesor(Usuario):
     def __init__(self, nombre: str, apellido: str, email: str, contrasena: str, titulo: str, anio_egreso: int):
@@ -19,10 +19,10 @@ class Profesor(Usuario):
     def __str__(self):
         return f" Nombre: {self.__nombre}\n Apellido: {self.__apellido}\n Email: {self.__email}"
     
-profesores = [
-    Profesor("Jesica", "Rodriguez", "jesicarodriguez@gmail.com", "jesica1986", "Ingenieria Quimica", 2015),
-    Profesor("Esteban", "Perez", "estebanperez@gmail.com", "esteban1986", "Ingenieria Electrica", 2009)
- ]
-
+profesores = []
+profe1 = Profesor("Jesica", "Rodriguez", "2", "2", "Ingenieria Quimica", 2015)
+profe2 = Profesor("Esteban", "Perez", "estebanperez@gmail.com", "esteban1986", "Ingenieria Electrica", 2009)
+profesores.append(profe1)
+profesores.append(profe2)
 #for profesor in profesores:
 #    print(f"Nombre: {profesor.nombre}, Apellido: {profesor.apellido}, Email: {profesor.email}, Titulo: {profesor.titulo}, Año de egreso: {profesor.anio_egreso}")
