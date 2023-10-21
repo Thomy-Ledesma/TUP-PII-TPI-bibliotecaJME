@@ -1,5 +1,3 @@
-import string, random
-import os
 from usuario import *
 
 class Curso:
@@ -40,3 +38,6 @@ curso3 = Curso("Arquitectura de las Computadoras", "333")
 curso4 = Curso("Programacion", "444")
 
 cursos_lista =[curso1, curso2, curso3, curso4]
+
+#for curso in cursos_lista:
+#    print(f"Nombre: {curso.nombre}, Clave: {curso.clave}")

@@ -121,11 +121,19 @@ def matricularse_a_un_curso(estudiante_encontrado):
     else:
         print("Opncion  invalida, Por favor ingrese una opcion que sea numerica.")
 
+# def ver_cursos(cursos_lista):
+#     print("\n Lista de Cursos Disponibles")
+#     ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
+#     for i, curso in enumerate(ordenar_cursos, start=1):
+#         print(f"{i}.-", curso)
+
 def ver_cursos(cursos_lista):
     print("\n Lista de Cursos Disponibles")
-    ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
-    for i, curso in enumerate(ordenar_cursos, start=1):
-        print(f"{i}.-", curso)
+    if cursos_lista is not None:
+        ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
+        for i, curso in enumerate(ordenar_cursos, start=1):
+            print(f"{i}.-", curso)
+
 
 def cursos_inscripto(estudiante_encontrado):
     if not estudiante_encontrado.cursos:
@@ -136,7 +144,7 @@ def cursos_inscripto(estudiante_encontrado):
             print(f"{i}. {curso.nombre}")
 
 
-
+#MENU APP 
 print("Bienvenido, las opciones son: \n")
 respuesta = ""
 
@@ -155,7 +163,7 @@ while respuesta != "Salir":
         elif int(opcion) == 2:
             ingresar_profesor(profesores)
         elif int(opcion) == 3:
-            ver_cursos()
+            ver_cursos(cursos_lista)
         elif int(opcion) == 4:
             print("Saliendo del sistema..")
             break
