@@ -1,4 +1,6 @@
 from usuario import *
+import string
+import random
 
 class Curso:
     def __init__(self, nombre: str, clave: str) -> None:
@@ -15,6 +17,12 @@ class Curso:
     
     def __str__(self) -> str:
         return f"Curso: {self.nombre}"
+    
+    @staticmethod
+    def generar_clave():
+        characters = string.ascii_letters + string.digits
+        cod = ''.join(random.choice(characters) for i in range(8))
+        return cod
         
 # materia = Curso("ingles")
 

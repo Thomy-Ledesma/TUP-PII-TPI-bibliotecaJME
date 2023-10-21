@@ -70,8 +70,8 @@ def ingresar_profesor(profesores):
             
             respuesta = ""
             def menu():
-                print("1.- Matricularse a un curso.")
-                print(f"2.- Ver cursos a los que {profesor_encontrado.nombre} está inscripto")
+                print("1.- Dictar Curso.")
+                print(f"2.- Ver cursos que {profesor_encontrado.nombre} está dictando")
                 print("3.- Volver al menu principal")
                 
             while respuesta != "Salir":
@@ -79,12 +79,9 @@ def ingresar_profesor(profesores):
                 opcion = input("Ingrese una opción del menú: ")
                 if opcion.isnumeric():
                     if int(opcion) == 1:
-                        nuevo_curso = matricularse_a_un_curso(profesor_encontrado)
-                        if nuevo_curso != None:
-                            profesor_encontrado.cursos.append(nuevo_curso)
-                        print(profesores[0].cursos)
+                        dictar_un_curso(profesor_encontrado)
                     elif int(opcion) == 2:
-                        cursos_inscripto(profesor_encontrado)
+                        cursos_dictados(profesor_encontrado)
                     elif int(opcion) == 3:
                         print("Volviendo al menu principal..")
                         break
@@ -121,12 +118,6 @@ def matricularse_a_un_curso(estudiante_encontrado):
     else:
         print("Opncion  invalida, Por favor ingrese una opcion que sea numerica.")
 
-# def ver_cursos(cursos_lista):
-#     print("\n Lista de Cursos Disponibles")
-#     ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
-#     for i, curso in enumerate(ordenar_cursos, start=1):
-#         print(f"{i}.-", curso)
-
 def ver_cursos(cursos_lista):
     print("\n Lista de Cursos Disponibles")
     if cursos_lista is not None:
@@ -143,6 +134,21 @@ def cursos_inscripto(estudiante_encontrado):
         for i, curso in enumerate(estudiante_encontrado.cursos, start=1):
             print(f"{i}. {curso.nombre}")
 
+def dictar_un_curso(profesor_econtrado):
+    curso_nombre = input("Ingrese el nombre del curso que va a dictar: ")
+    clave_matriculacion = Curso.generar_clave()
+    curso = Curso(curso_nombre, clave_matriculacion)
+    cursos_lista.append(curso)
+    profesor_econtrado.cursos.append(curso)
+    print(f"Curso ingresado con exito!, \nCurso: {curso_nombre}\nClave Matriculacion: {clave_matriculacion}")
+    
+def cursos_dictados(profesor_encontrado):
+    if not profesor_encontrado.cursos:
+        print("Aun no tienes registrado un curso para dictar.")
+    else:
+        print("Cursos inscriptos para dictar.")
+        for i, curso in enumerate(profesor_encontrado.cursos, start=1):
+            print(f"{i}.- {curso.nombre} \nClave Matriculacion: {curso.clave}")
 
 #MENU APP 
 print("Bienvenido, las opciones son: \n")

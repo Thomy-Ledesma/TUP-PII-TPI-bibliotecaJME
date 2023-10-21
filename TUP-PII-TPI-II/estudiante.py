@@ -31,7 +31,7 @@ class Estudiante(Usuario):
             else:
                 validar = f"Ya se encuentra matriculado en el curso {curso.nombre}."
         else:
-            mensaje ="Matriculacion fallida. La contraseña ingresada es incorrecta."
+            validar ="Matriculacion fallida. La contraseña ingresada es incorrecta."
         return validar
         
 
