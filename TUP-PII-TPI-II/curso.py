@@ -1,15 +1,11 @@
 import string, random
 import os
-
-def generar_clave():
-    characters = string.ascii_letters + string.digits
-    cod = ''.join(random.choice(characters) for i in range(8))
-    return cod
+from usuario import *
 
 class Curso:
-    def __init__(self, nombre) -> None:
+    def __init__(self, nombre: str, clave: str) -> None:
         self.__nombre = nombre
-        self.__clave = generar_clave()
+        self.__clave = clave
         
     @property
     def nombre(self):
@@ -19,57 +15,28 @@ class Curso:
     def clave(self):
         return self.__clave
     
+    def __str__(self) -> str:
+        return f"Curso: {self.nombre}"
         
-materia = Curso("ingles")
+# materia = Curso("ingles")
 
-print(materia)
+# print(materia)
     
-materia_1 = Curso("Ingles I")
-materia_2 = Curso("Ingles II")
-materia_3 = Curso("Laboratorio I")
-materia_4 = Curso("Laboratorio II")
-materia_5 = Curso("Programación I")
-materia_6 = Curso("Programación II")
+# materia_1 = Curso("Ingles I")
+# materia_2 = Curso("Ingles II")
+# materia_3 = Curso("Laboratorio I")
+# materia_4 = Curso("Laboratorio II")
+# materia_5 = Curso("Programación I")
+# materia_6 = Curso("Programación II")
 
-cursos = {
-    "Tecnicatura Universitaria en Programación" : [materia_1,materia_2,materia_3,materia_4,materia_5,materia_6],
-    "Ingenieria en sistemas" : ["Proximamente... ;)"]
-}
+# cursos = {
+#     "Tecnicatura Universitaria en Programación" : [materia_1,materia_2,materia_3,materia_4,materia_5,materia_6],
+#     "Ingenieria en sistemas" : ["Proximamente... ;)"]
+# }
 
+curso1 = Curso("Laboratorio de Computacion", "111")
+curso2 = Curso("Ingles", "222")
+curso3 = Curso("Arquitectura de las Computadoras", "333")
+curso4 = Curso("Programacion", "444")
 
-
-def ver_cursos(usuario = None):
-    i = 0
-    os.system ("cls") #Limpiar pantalla
-    carreras_lista = list(cursos.keys())
-    for carreras in carreras_lista:
-        print(f'\n{i + 1} - {carreras}')
-        i += 1
-    print("\n")
-    carrera = int(input("Seleccione la carrera: "))
-    carrera = cursos[carreras_lista[carrera - 1]]
-    carrera.sort()
-    os.system ("cls") #Limpiar pantalla
-    i = 0
-    for materias in carrera:
-        print(f'{i+1} - {materias} \n')
-        i += 1
-    if usuario != None:
-        curso_inscripcion = input("Seleccione el curso a inscribirse: ")
-        if curso_inscripcion.isnumeric():
-            if int(curso_inscripcion) in range(1, len(carrera) + 1):
-                if(carrera[int(curso_inscripcion) - 1] in usuario.cursos):
-                    print("El usuario ya se encuentra en este curso")
-                    return None
-                return carrera[int(curso_inscripcion) - 1]
-            else:
-                print("Opción fuera de rango")
-        else:
-            print("Opción no numerica")
-
-
-def cursos_inscripto(usuario):
-    cursos = usuario.cursos
-    if cursos != []:
-        for curso in cursos: 
-            print(f'- {curso}')
+cursos_lista =[curso1, curso2, curso3, curso4]

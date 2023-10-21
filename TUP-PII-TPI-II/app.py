@@ -30,10 +30,7 @@ def ingresar_estudiante(estudiantes):
                 opcion = input("Ingrese una opción del menú: ")
                 if opcion.isnumeric():
                     if int(opcion) == 1:
-                        nuevo_curso = matricularse_a_un_curso(estudiante_encontrado)
-                        if nuevo_curso != None:
-                            estudiante_encontrado.cursos.append(nuevo_curso)
-                        print(estudiantes[2].cursos)
+                        matricularse_a_un_curso(estudiante_encontrado)
                     elif int(opcion) == 2:
                         cursos_inscripto(estudiante_encontrado)
                     elif int(opcion) == 3:
@@ -108,8 +105,35 @@ def ingresar_profesor(profesores):
         
 
 
-def matricularse_a_un_curso(alumno):
-    return ver_cursos(alumno)
+def matricularse_a_un_curso(estudiante_encontrado):
+    ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
+    ver_cursos(cursos_lista)
+    opcion = input("Seleccione el numero del curso al que se desea matricular: ")
+    if opcion.isdigit():
+        menu_curso = int(opcion) -1
+        if 0 <= menu_curso <len(ordenar_cursos):
+            curso = ordenar_cursos[menu_curso]
+            clave_matriculacion = input(f"Ingrese la contraseña para matricularse al curso {curso.nombre}: ")
+            validar = estudiante_encontrado.validar_clave(curso, clave_matriculacion)
+            print(validar)
+        else:
+            print("Opncion n9o valida, Por favor ingrese una opcion que se encuentre en la lista.")
+    else:
+        print("Opncion  invalida, Por favor ingrese una opcion que sea numerica.")
+
+def ver_cursos(cursos_lista):
+    print("\n Lista de Cursos Disponibles")
+    ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
+    for i, curso in enumerate(ordenar_cursos, start=1):
+        print(f"{i}.-", curso)
+
+def cursos_inscripto(estudiante_encontrado):
+    if not estudiante_encontrado.cursos:
+        print("Aun no te encuentras matriculado en un curso.")
+    else:
+        print("\n Cursos en los que estas matriculado.")
+        for i, curso in enumerate(estudiante_encontrado.cursos, start=1):
+            print(f"{i}. {curso.nombre}")
 
 
 
