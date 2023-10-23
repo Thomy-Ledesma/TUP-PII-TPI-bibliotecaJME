@@ -114,9 +114,9 @@ def matricularse_a_un_curso(estudiante_encontrado):
             validar = estudiante_encontrado.validar_clave(curso, clave_matriculacion)
             print(validar)
         else:
-            print("Opncion n9o valida, Por favor ingrese una opcion que se encuentre en la lista.")
+            print("Opción no valida, Por favor ingrese una opción que se encuentre en la lista.")
     else:
-        print("Opncion  invalida, Por favor ingrese una opcion que sea numerica.")
+        print("Opción  invalida, Por favor ingrese una opción que sea numerica.")
 
 def ver_cursos(cursos_lista):
     print("\n Lista de Cursos Disponibles")

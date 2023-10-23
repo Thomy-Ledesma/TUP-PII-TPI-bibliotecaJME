@@ -24,5 +24,3 @@ profe1 = Profesor("Jesica", "Rodriguez", "2", "2", "Ingenieria Quimica", 2015)
 profe2 = Profesor("Esteban", "Perez", "estebanperez@gmail.com", "esteban1986", "Ingenieria Electrica", 2009)
 profesores.append(profe1)
 profesores.append(profe2)
-#for profesor in profesores:
-#    print(f"Nombre: {profesor.nombre}, Apellido: {profesor.apellido}, Email: {profesor.email}, Titulo: {profesor.titulo}, Año de egreso: {profesor.anio_egreso}")

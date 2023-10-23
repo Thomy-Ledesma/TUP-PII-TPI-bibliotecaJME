@@ -43,6 +43,3 @@ estudiante3 = Estudiante("Thomás", "Ledesma", "1", "1", 5052, 2023)
 estudiantes.append(estudiante1)
 estudiantes.append(estudiante2)
 estudiantes.append(estudiante3)
-
-#for estudiante in estudiantes:
-#    print(f"Nombre: {estudiante.nombre}, Apellido: {estudiante.apellido}, Email: {estudiante.email}, Legajo: {estudiante.legajo}, Año de Inscripción: {estudiante.anio_inscripcion_carrera}")
