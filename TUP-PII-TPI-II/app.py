@@ -135,7 +135,11 @@ def cursos_inscripto(estudiante_encontrado):
             print(f"{i}. {curso.nombre}")
 
 def dictar_un_curso(profesor_econtrado):
-    curso_nombre = input("Ingrese el nombre del curso que va a dictar: ")
+    curso_nombre = input("Ingrese el nombre del curso que va a dictar: ").capitalize()
+    for curso in cursos_lista:
+        if curso.nombre == curso_nombre:
+            print(f"El curso {curso_nombre} ya existe en la lista, por favor ingrese otro")
+            return
     clave_matriculacion = Curso.generar_clave()
     curso = Curso(curso_nombre, clave_matriculacion)
     cursos_lista.append(curso)
