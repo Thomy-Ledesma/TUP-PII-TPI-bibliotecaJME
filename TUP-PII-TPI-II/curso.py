@@ -12,9 +12,9 @@ def generar_clave():
     
 class Curso:
     _code = 1 #planetamos una variable de clase para aplicar el código a cada instancia
-    def __init__(self, nombre: str, clave:str = ""):
+    def __init__(self, nombre: str, clave:str = " "):
         self.__nombre = nombre
-        if self.clave != "":
+        if clave == "":
             self.__clave = generar_clave()
         else:
             self.__clave = clave
