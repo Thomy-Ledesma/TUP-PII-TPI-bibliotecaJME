@@ -1,1 +1,0 @@
-validar_clave

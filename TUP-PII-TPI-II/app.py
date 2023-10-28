@@ -142,6 +142,7 @@ def dictar_un_curso(profesor_econtrado):
             return
     clave_matriculacion = Curso.generar_clave()
     curso = Curso(curso_nombre, clave_matriculacion)
+    
     cursos_lista.append(curso)
     profesor_econtrado.cursos.append(curso)
     print(f"Curso ingresado con exito!, \nCurso: {curso_nombre}\nClave Matriculacion: {clave_matriculacion}")
