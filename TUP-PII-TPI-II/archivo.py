@@ -1,23 +1,23 @@
-from datetime import *
+from datetime import datetime
 
 class Archivo:
-    def __init__(self, nombre: str, fecha: date, formato: str):
+    def __init__(self, nombre: str, formato: str):
         self.__nombre = nombre
-        self.__fecha = fecha
+        self.__fecha = datetime.today().strftime("%d/%m/%Y")
         self.__formato = formato
         
     @property
     def nombre(self):
         return self.__nombre
     
-    property
+    @property
     def fecha(self):
-        return self.__fecha.strftime("%d/%m/%Y")
+        return self.__fecha
     
-    property
+    @property
     def formato(self):
         return self.__formato  
         
         
     def __str__(self) -> str:
-        return f"Nombre: {self.__nombre} - Fecha: {self.__fecha} - Formato: {self.__formato}"
+        print(f"Nombre: {self.nombre} - Fecha: {self.fecha} - Formato: {self.formato}")
