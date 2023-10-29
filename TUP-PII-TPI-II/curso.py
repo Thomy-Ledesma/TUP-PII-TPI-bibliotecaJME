@@ -2,20 +2,13 @@ from usuario import *
 from archivo import *
 import string
 import random
-
-
-def generar_clave():
-    characters = string.ascii_letters + string.digits
-    cod = ''.join(random.choice(characters) for i in range(8))
-    print(f"la contraseña es {cod}")
-    return cod
     
 class Curso:
     _code = 1 #planetamos una variable de clase para aplicar el código a cada instancia
-    def __init__(self, nombre: str, clave:str = " "):
+    def __init__(self, nombre: str, clave:str = None):
         self.__nombre = nombre
         if clave == "":
-            self.__clave = generar_clave()
+            self.__clave = generar_contrasenia()
         else:
             self.__clave = clave
         self.__codigo = Curso._code
@@ -50,6 +43,13 @@ class Curso:
         print(f"Archivos de {self.nombre}:")
         for archivo in self.archivos:
             print(f" {archivo.nombre}.{archivo.formato}")
+            
+    @staticmethod
+    def generar_contrasenia():
+        characters = string.ascii_letters + string.digits
+        cod = ''.join(random.choice(characters) for i in range(8))
+        print(f"La contraseña es {cod}")
+        return cod
 
 
 curso1 = Curso("Laboratorio de Computacion", "111")

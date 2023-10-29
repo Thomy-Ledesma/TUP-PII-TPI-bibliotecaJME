@@ -47,5 +47,3 @@ class Usuario(ABC): #super clase, Estudiante y Profesor heredarán Usuario
         if self.__email == email and self.__contrasena == contrasena:
             return True
         return False
-
-

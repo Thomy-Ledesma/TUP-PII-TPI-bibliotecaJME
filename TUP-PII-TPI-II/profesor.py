@@ -1,10 +1,12 @@
 from usuario import *
+from carrera import Carrera
 
 class Profesor(Usuario):
     def __init__(self, nombre: str, apellido: str, email: str, contrasena: str, titulo: str, anio_egreso: int):
         super().__init__(nombre, apellido, email, contrasena)
         self.__titulo = titulo
         self.__anio_egreso = anio_egreso
+        self.carreras = []  # Lista de carreras asociadas al profesor
         self.cursos = []
         
     @property

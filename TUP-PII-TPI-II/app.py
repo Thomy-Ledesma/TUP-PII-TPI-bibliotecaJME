@@ -2,6 +2,9 @@ from usuario import *
 from estudiante import *
 from profesor import *
 from curso import *
+from carrera import *
+
+carreras = []
 
 def ingresar_estudiante(estudiantes):
     
@@ -79,7 +82,7 @@ def ingresar_profesor(profesores):
                 opcion = input("Ingrese una opción del menú: ")
                 if opcion.isnumeric():
                     if int(opcion) == 1:
-                        dictar_un_curso(profesor_encontrado)
+                        dictar_un_curso(profesor_encontrado, carreras)
                     elif int(opcion) == 2:
                         cursos_dictados(profesor_encontrado)
                     elif int(opcion) == 3:
@@ -118,13 +121,19 @@ def matricularse_a_un_curso(estudiante_encontrado):
     else:
         print("Opción  invalida, Por favor ingrese una opción que sea numerica.")
 
-def ver_cursos(cursos_lista):
-    print("\n Lista de Cursos Disponibles")
-    if cursos_lista is not None:
-        ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
-        for i, curso in enumerate(ordenar_cursos, start=1):
-            print(f"{i}.-", curso)
-
+def ver_cursos():
+    if not carreras:
+        print("No hay cursos disponibles.")
+    else:
+        print("\nLista de Cursos Disponibles:")
+    for carrera in carreras:
+        cursos = carrera.get_cursos()
+        if cursos:
+            cursos_ordenados = sorted(cursos, key=lambda x: x.nombre)
+            for curso in cursos_ordenados:
+                print(f"  - Curso: {curso.nombre} - Carrera: {carrera.nombre}")
+        else:
+            print(f"\nCarrera: {carrera.nombre} (No tiene cursos asignados)")
 
 def cursos_inscripto(estudiante_encontrado):
     if not estudiante_encontrado.cursos:
@@ -134,18 +143,48 @@ def cursos_inscripto(estudiante_encontrado):
         for i, curso in enumerate(estudiante_encontrado.cursos, start=1):
             print(f"{i}. {curso.nombre}")
 
-def dictar_un_curso(profesor_econtrado):
+def dictar_un_curso(profesor, carreras):
+    # Solicitar al profesor que elija una carrera para el curso
+    print("Carreras disponibles:")
+    for i, carrera in enumerate(carreras, start=1):
+        print(f"{i}.- {carrera.nombre}")
+    print(f"{len(carreras) + 1}.- Ingresar nueva carrera")
+
+    while True:
+        seleccion_carrera = input("Seleccione una carrera para el curso (ingrese el número): ")
+        if seleccion_carrera.isdigit():
+            seleccion_carrera = int(seleccion_carrera)
+            if 1 <= seleccion_carrera <= len(carreras):
+                carrera_seleccionada = carreras[seleccion_carrera - 1]
+                break
+            elif seleccion_carrera == len(carreras) + 1:
+                nueva_carrera_nombre = input("Ingrese el nombre de la nueva carrera: ")
+                carrera_seleccionada = Carrera(nueva_carrera_nombre)
+                carreras.append(carrera_seleccionada)
+                print(f"Nueva carrera '{nueva_carrera_nombre}' creada.")
+                break
+            else:
+                print("Selección inválida. Ingrese un número válido.")
+        else:
+            print("Selección inválida. Ingrese un número válido.")
+    
     curso_nombre = input("Ingrese el nombre del curso que va a dictar: ").capitalize()
-    for curso in cursos_lista:
-        if curso.nombre == curso_nombre:
+    cursos_de_la_carrera = carrera_seleccionada.get_cursos()
+    for curso in cursos_de_la_carrera:
+        if curso.nombre.lower() == curso_nombre.lower():
             print(f"El curso {curso_nombre} ya existe en la lista, por favor ingrese otro")
             return
-    clave_matriculacion = Curso.generar_clave()
-    curso = Curso(curso_nombre, clave_matriculacion)
     
-    cursos_lista.append(curso)
-    profesor_econtrado.cursos.append(curso)
-    print(f"Curso ingresado con exito!, \nCurso: {curso_nombre}\nClave Matriculacion: {clave_matriculacion}")
+    #Crear una instancia de Curso para generar la contraseña
+    clave_matriculacion = Curso.generar_contrasenia()  # Llama al método desde la clase Curso
+    nuevo_curso = Curso(curso_nombre, clave_matriculacion)
+    
+    # Agregar el curso a la lista de cursos de la carrera
+    carrera_seleccionada.agregar_curso(nuevo_curso)
+    profesor.cursos.append(nuevo_curso)
+    
+    print(f"Curso ingresado con exito!, \nCurso: {curso_nombre}\nCarrera: {carrera_seleccionada.nombre}\nClave Matriculacion: {clave_matriculacion}\nCódigo del Curso: {nuevo_curso.codigo}")
+    
     
 def cursos_dictados(profesor_encontrado):
     if not profesor_encontrado.cursos:
@@ -153,7 +192,30 @@ def cursos_dictados(profesor_encontrado):
     else:
         print("Cursos inscriptos para dictar.")
         for i, curso in enumerate(profesor_encontrado.cursos, start=1):
-            print(f"{i}.- {curso.nombre} \nClave Matriculacion: {curso.clave}")
+            print(f"{i}.- {curso.nombre}")
+            
+        opcion = input("Seleccione el número del curso para ver más detalles: ")
+        if opcion.isdigit():
+            indice_curso = int(opcion) - 1
+            if 0 <= indice_curso < len(profesor_encontrado.cursos):
+                curso_seleccionado = profesor_encontrado.cursos[indice_curso]
+                cantidad_archivos = len(curso_seleccionado.archivos) if hasattr(curso_seleccionado, 'archivos') else 0
+                print(f"{i}.- {curso.nombre} - Código: {curso.codigo} - Clave de Matriculación: {curso.clave} - Cantidad de Archivos: {cantidad_archivos}")
+                #Agregar archivos
+                respuesta = input("¿Desea agregar un archivo adjunto? (S/N): ").strip().lower()
+                if respuesta == 's':
+                    agregar_archivo_a_curso(curso_seleccionado)
+            else:
+                print("Opción no válida, por favor ingrese una opción que se encuentre en la lista.")
+        else:
+            print("Opción inválida, por favor ingrese una opción que sea numérica.")
+
+def agregar_archivo_a_curso(curso):
+    nombre_archivo = input("Ingrese el nombre del archivo: ")
+    formato_archivo = input("Ingrese el formato del archivo: ")
+    nuevo_archivo = Archivo(nombre_archivo, formato_archivo)
+    curso.nuevo_archivo(nuevo_archivo)
+    print("Archivo agregado con éxito.")
 
 #MENU APP 
 print("Bienvenido, las opciones son: \n")
@@ -174,7 +236,7 @@ while respuesta != "Salir":
         elif int(opcion) == 2:
             ingresar_profesor(profesores)
         elif int(opcion) == 3:
-            ver_cursos(cursos_lista)
+            ver_cursos()
         elif int(opcion) == 4:
             print("Saliendo del sistema..")
             break
