@@ -4,10 +4,6 @@ from profesor import *
 from curso import *
 from carrera import *
 
-carreras = []
-carrera1 = Carrera("Tecnicatura en Programación", 2)
-
-carreras.append(carrera1)
 
 def ingresar_estudiante(estudiantes):
     
@@ -23,13 +19,14 @@ def ingresar_estudiante(estudiantes):
         
     if estudiante_encontrado != None:
         if estudiante_encontrado.validar_credenciales(email, contrasena):
-            print("Acceso concedido. Bienvenido")
+            print(f"Acceso concedido. Bienvenido {estudiante_encontrado.nombre}")
             
             respuesta = ""
             def menu():
-                print("1.- Matricularse a un curso.")
-                print(f"2.- Ver cursos a los que {estudiante_encontrado.nombre} está inscripto")
-                print("3.- Volver al menu principal")
+                print("1 - Matricularse a un curso.")
+                print("2- Desmatricularse de un curso.")
+                print(f"3 - Ver cursos inscriptos")
+                print("4 - Volver al menu principal")
                 
             while respuesta != "Salir":
                 menu()
@@ -38,7 +35,7 @@ def ingresar_estudiante(estudiantes):
                     if int(opcion) == 1:
                         matricularse_a_un_curso(estudiante_encontrado)
                     elif int(opcion) ==2:
-                        desmatricular_a_un_curso(estudiante_encontrado)
+                        cursos_inscripto(estudiante_encontrado, True)
                     elif int(opcion) == 3:
                         cursos_inscripto(estudiante_encontrado)
                     elif int(opcion) == 4:
@@ -107,53 +104,53 @@ def ingresar_profesor(profesores):
             print("Error de ingreso, vuelva a intentar.")
     else:
         print("Alumno inexistente. Debe darse de alta!")
-        
-def desmatricular_a_un_curso(estudiante_encontrado):
-    pass
 
 def matricularse_a_un_curso(estudiante_encontrado):
     if not carreras:
         print("No hay cursos disponibles. Espere que el profesor lo de alta.")
     else:
-        ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
-        ver_cursos(cursos_lista)
+        curso_a_inscribir = ver_cursos(carreras)
         #si no hay cursos vuelve al menú principal
-        opcion = input("Seleccione el numero del curso al que se desea matricular: ")
-        if opcion.isdigit():
-            menu_curso = int(opcion) -1
-            if 0 <= menu_curso <len(ordenar_cursos):
-                curso = ordenar_cursos[menu_curso]
-                clave_matriculacion = input(f"Ingrese la contraseña para matricularse al curso {curso.nombre}: ")
-                validar = estudiante_encontrado.validar_clave(curso, clave_matriculacion)
-                print(validar)
-            else:
-                print("Opción no valida, Por favor ingrese una opción que se encuentre en la lista.")
-        else:
-            print("Opción  invalida, Por favor ingrese una opción que sea numerica.")
-
-def ver_cursos(cursos_lista):
+        password = input("ingrese la contraseña del curso: ")
+        estudiante_encontrado.matricular_en_curso(curso_a_inscribir, password)
+        
+def ver_cursos(carreras, readonly = False):
+    i = 1
     if not carreras:
         print("No hay cursos disponibles. Espere que el profesor lo de alta.")
     else:
-        print("\nLista de Cursos Disponibles:")
-    for carrera in carreras:
-        cursos = carrera.get_cursos()
-        if cursos:
-            cursos_ordenados = sorted(cursos, key=lambda x: x.nombre)
-            for curso in cursos_ordenados:
-                print(f"  - Curso: {curso.nombre} - Carrera: {carrera.nombre}")
-        else:
-            print(f"\nCarrera: {carrera.nombre} (No tiene cursos asignados)")
+        for carrera in carreras:
+            print(f"{i} - {carrera.nombre}")
+            i += 1
+        carrera_seleccionada = int(input("Seleccione la carrera: ")) - 1
+        i = 1
+        for curso in carreras[carrera_seleccionada].cursos:
+            print(f"{i} - {curso.nombre}")
+            i += 1
+        if readonly == False:
+            curso_seleccionado = int(input("ingrese el número de la carrera a la que se desea matricular: ")) - 1
+            return carreras[carrera_seleccionada].cursos[curso_seleccionado]
+        
 
-def cursos_inscripto(estudiante_encontrado):
+def cursos_inscripto(estudiante_encontrado, desmatricular = False):
     if not estudiante_encontrado.cursos:
-        print("Aun no te encuentras matriculado en un curso.")
+        print("Aun no te encuentras matriculado en ningún curso.")
     else:
         print("\n Cursos en los que estas matriculado.")
         for i, curso in enumerate(estudiante_encontrado.cursos, start=1):
             print(f"{i}. {curso.nombre}")
+        
+        materia = estudiante_encontrado.cursos[int(input("seleccione el curso: ")) - 1]
+        
+        if desmatricular:
+            password = input("ingrese la contraseña del curso: ")
+            estudiante_encontrado.desmatricular_curso(materia, password)
+        else:
+            materia.ver_archivos()
+
 
 def dictar_un_curso(profesor, carreras):
+    i = 0
     # Solicitar al profesor que elija una carrera para el curso
     print("Carreras disponibles:")
     for i, carrera in enumerate(carreras, start=1):
@@ -186,7 +183,7 @@ def dictar_un_curso(profesor, carreras):
             return
     
     #Crear una instancia de Curso para generar la contraseña
-    clave_matriculacion = Curso.generar_contrasenia()  # Llama al método desde la clase Curso
+    clave_matriculacion = generar_clave()  # Llama al método desde la clase Curso
     nuevo_curso = Curso(curso_nombre, clave_matriculacion)
     
     # Agregar el curso a la lista de cursos de la carrera
@@ -246,7 +243,7 @@ while respuesta != "Salir":
         elif int(opcion) == 2:
             ingresar_profesor(profesores)
         elif int(opcion) == 3:
-            ver_cursos()
+            ver_cursos(carreras, True)
         elif int(opcion) == 4:
             print("Saliendo del sistema..")
             break
@@ -255,7 +252,7 @@ while respuesta != "Salir":
     else:
         print("Ingrese una opción numérica")
     
-    input("Presione cualquier tecla para salir")
+    input("Presione cualquier tecla para salir ")
     
 print("Hasta luego!")
     

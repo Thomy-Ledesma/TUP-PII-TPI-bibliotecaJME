@@ -15,15 +15,11 @@ class Estudiante(Usuario):
     @property
     def anio_inscripcion_carrera(self):
         return self.__anio_inscripcion_carrera
-    
-    def matricular_en_curso():
-        pass
-
        
     def __str__(self):
         return f" Nombre: {self.nombre}\n Apellido: {self.apellido}\n Email: {self.email}"
     
-    def validar_clave(self, curso: Curso, clave_matriculacion: str) -> bool:
+    def matricular_en_curso(self, curso: Curso, clave_matriculacion: str):
         if clave_matriculacion == curso.clave:
             if curso not in self.cursos:
                 self.cursos.append(curso)
@@ -33,6 +29,15 @@ class Estudiante(Usuario):
         else:
             validar ="Matriculacion fallida. La contraseña ingresada es incorrecta."
         return validar
+    
+    def desmatricular_curso(self, curso: Curso, clave_matriculacion: str):
+        if clave_matriculacion == curso.clave:
+            self.cursos.remove(curso)
+            validar = f"Desmatriculación en el curso {curso.nombre} exitosa!"
+        else:
+            validar ="Desmatriculacion fallida. La contraseña ingresada es incorrecta."
+        print(validar)
+        
         
 
 estudiantes = []
