@@ -17,3 +17,8 @@ class Carrera:
     def nombre(self):
         return self.__nombre
     
+    
+carreras = []
+carrera1 = Carrera("Tecnicatura en programación", 2)
+
+carreras.append(carrera1)

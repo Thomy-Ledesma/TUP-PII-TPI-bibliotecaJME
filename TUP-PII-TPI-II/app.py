@@ -5,6 +5,9 @@ from curso import *
 from carrera import *
 
 carreras = []
+carrera1 = Carrera("Tecnicatura en Programación", 2)
+
+carreras.append(carrera1)
 
 def ingresar_estudiante(estudiantes):
     
@@ -34,9 +37,11 @@ def ingresar_estudiante(estudiantes):
                 if opcion.isnumeric():
                     if int(opcion) == 1:
                         matricularse_a_un_curso(estudiante_encontrado)
-                    elif int(opcion) == 2:
-                        cursos_inscripto(estudiante_encontrado)
+                    elif int(opcion) ==2:
+                        desmatricular_a_un_curso(estudiante_encontrado)
                     elif int(opcion) == 3:
+                        cursos_inscripto(estudiante_encontrado)
+                    elif int(opcion) == 4:
                         print("Volviendo al menu principal..")
                         break
                     else:
@@ -103,27 +108,32 @@ def ingresar_profesor(profesores):
     else:
         print("Alumno inexistente. Debe darse de alta!")
         
-
+def desmatricular_a_un_curso(estudiante_encontrado):
+    pass
 
 def matricularse_a_un_curso(estudiante_encontrado):
-    ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
-    ver_cursos(cursos_lista)
-    opcion = input("Seleccione el numero del curso al que se desea matricular: ")
-    if opcion.isdigit():
-        menu_curso = int(opcion) -1
-        if 0 <= menu_curso <len(ordenar_cursos):
-            curso = ordenar_cursos[menu_curso]
-            clave_matriculacion = input(f"Ingrese la contraseña para matricularse al curso {curso.nombre}: ")
-            validar = estudiante_encontrado.validar_clave(curso, clave_matriculacion)
-            print(validar)
-        else:
-            print("Opción no valida, Por favor ingrese una opción que se encuentre en la lista.")
-    else:
-        print("Opción  invalida, Por favor ingrese una opción que sea numerica.")
-
-def ver_cursos():
     if not carreras:
-        print("No hay cursos disponibles.")
+        print("No hay cursos disponibles. Espere que el profesor lo de alta.")
+    else:
+        ordenar_cursos = sorted(cursos_lista, key=lambda cursos: cursos.nombre)
+        ver_cursos(cursos_lista)
+        #si no hay cursos vuelve al menú principal
+        opcion = input("Seleccione el numero del curso al que se desea matricular: ")
+        if opcion.isdigit():
+            menu_curso = int(opcion) -1
+            if 0 <= menu_curso <len(ordenar_cursos):
+                curso = ordenar_cursos[menu_curso]
+                clave_matriculacion = input(f"Ingrese la contraseña para matricularse al curso {curso.nombre}: ")
+                validar = estudiante_encontrado.validar_clave(curso, clave_matriculacion)
+                print(validar)
+            else:
+                print("Opción no valida, Por favor ingrese una opción que se encuentre en la lista.")
+        else:
+            print("Opción  invalida, Por favor ingrese una opción que sea numerica.")
+
+def ver_cursos(cursos_lista):
+    if not carreras:
+        print("No hay cursos disponibles. Espere que el profesor lo de alta.")
     else:
         print("\nLista de Cursos Disponibles:")
     for carrera in carreras:
