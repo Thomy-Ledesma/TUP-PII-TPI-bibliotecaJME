@@ -46,9 +46,12 @@ class Curso:
         new_archivo = archivo
         self.archivos.append(new_archivo)
 
+    
     def ver_archivos(self):
+        
         print(f"Archivos de {self.nombre}:")
-        for archivo in self.archivos:
+        sorted_archivos = sorted(self.archivos, key=lambda x: x.fecha)
+        for archivo in sorted_archivos:
             print(f" {archivo.nombre}.{archivo.formato}")
 
 
@@ -59,8 +62,8 @@ curso4 = Curso("Programacion", "444")
 
 archivo1 = Archivo("tp1","pdf")
 archivo2 = Archivo("tp2","docx")
-archivo3 = Archivo("abc", "xls")
-archivo4 = Archivo("efg", "jpge")
+archivo3 = Archivo("Clase_3", "wav")
+archivo4 = Archivo("Practica_parcial", "exe")
 
 curso1.nuevo_archivo(archivo1)
 curso1.nuevo_archivo(archivo2)

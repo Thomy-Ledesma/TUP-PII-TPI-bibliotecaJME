@@ -3,10 +3,12 @@ from estudiante import *
 from profesor import *
 from curso import *
 from carrera import *
+import os
 
 
 def ingresar_estudiante(estudiantes):
     
+    os.system('cls')
     email = input("Ingrese su email: ")
         
     estudiante_encontrado = None
@@ -19,10 +21,11 @@ def ingresar_estudiante(estudiantes):
         
     if estudiante_encontrado != None:
         if estudiante_encontrado.validar_credenciales(email, contrasena):
-            print(f"Acceso concedido. Bienvenido {estudiante_encontrado.nombre}")
             
             respuesta = ""
             def menu():
+                os.system('cls')
+                print(f"Bienvenido {estudiante_encontrado.nombre}")
                 print("1 - Matricularse a un curso.")
                 print("2 - Desmatricularse de un curso.")
                 print("3 - Ver cursos inscriptos")
@@ -57,6 +60,7 @@ def ingresar_estudiante(estudiantes):
         print("Alumno inexistente. Debe darse de alta!")
 
 def registrar_profesor():
+    os.system("cls")
     profe_nombre = input("ingrese el nombre: ")
     profe_apellido = input("ingrese el apellido: ")
     profe_mail = input("ingrese el mail: ")
@@ -67,6 +71,7 @@ def registrar_profesor():
     
 def ingresar_profesor(profesores):
     
+    os.system("cls")
     email = input("Ingrese su email: ")
         
     profesor_encontrado = None
@@ -79,10 +84,11 @@ def ingresar_profesor(profesores):
         
     if profesor_encontrado != None:
         if profesor_encontrado.validar_credenciales(email, contrasena):
-            print("Acceso concedido. Bienvenido")
             
             respuesta = ""
             def menu():
+                os.system('cls')
+                print(f"Acceso concedido. Bienvenido/a {profesor_encontrado.nombre}")
                 print("1.- Dictar Curso.")
                 print(f"2.- Ver cursos que {profesor_encontrado.nombre} está dictando")
                 print("3.- Volver al menu principal")
@@ -119,15 +125,18 @@ def ingresar_profesor(profesores):
 
 
 def matricularse_a_un_curso(estudiante_encontrado):
+    os.system("cls")
     if not carreras:
         print("No hay cursos disponibles. Espere que el profesor lo de alta.")
     else:
         curso_a_inscribir = ver_cursos(carreras)
         #si no hay cursos vuelve al menú principal
         password = input("ingrese la contraseña del curso: ")
+        os.system("cls")
         estudiante_encontrado.matricular_en_curso(curso_a_inscribir, password)
         
 def ver_cursos(carreras, readonly = False):
+    os.system("cls")
     i = 1
     if not carreras:
         print("No hay cursos disponibles. Espere que el profesor lo de alta.")
@@ -163,6 +172,7 @@ def ver_cursos(carreras, readonly = False):
         
 
 def cursos_inscripto(estudiante_encontrado, desmatricular = False):
+    os.system('cls')
     if not estudiante_encontrado.cursos:
         print("Aun no te encuentras matriculado en ningún curso.")
     else:
@@ -172,6 +182,7 @@ def cursos_inscripto(estudiante_encontrado, desmatricular = False):
         
         materia = estudiante_encontrado.cursos[int(input("seleccione el curso: ")) - 1]
         
+        os.system("cls")
         if desmatricular:
             password = input("ingrese la contraseña del curso: ")
             estudiante_encontrado.desmatricular_curso(materia, password)
@@ -180,6 +191,7 @@ def cursos_inscripto(estudiante_encontrado, desmatricular = False):
 
 
 def dictar_un_curso(profesor, carreras):
+    os.system('cls')
     i = 0
     # Solicitar al profesor que elija una carrera para el curso
     print("Carreras disponibles:")
@@ -198,6 +210,7 @@ def dictar_un_curso(profesor, carreras):
                 nueva_carrera_nombre = input("Ingrese el nombre de la nueva carrera: ")
                 carrera_seleccionada = Carrera(nueva_carrera_nombre)
                 carreras.append(carrera_seleccionada)
+                os.system('cls')
                 print(f"Nueva carrera '{nueva_carrera_nombre}' creada.")
                 break
             else:
@@ -205,7 +218,7 @@ def dictar_un_curso(profesor, carreras):
         else:
             print("Selección inválida. Ingrese un número válido.")
     
-    curso_nombre = input("Ingrese el nombre del curso que va a dictar: ").capitalize()
+    curso_nombre = input("Ingrese el nombre del curso que va a dictar: \n").capitalize()
     cursos_de_la_carrera = carrera_seleccionada.get_cursos()
     for curso in cursos_de_la_carrera:
         if curso.nombre.lower() == curso_nombre.lower():
@@ -219,11 +232,12 @@ def dictar_un_curso(profesor, carreras):
     # Agregar el curso a la lista de cursos de la carrera
     carrera_seleccionada.agregar_curso(nuevo_curso)
     profesor.cursos.append(nuevo_curso)
-    
-    print(f"Curso ingresado con exito!, \nCurso: {curso_nombre}\nCarrera: {carrera_seleccionada.nombre}\nClave Matriculacion: {clave_matriculacion}\nCódigo del Curso: {nuevo_curso.codigo}")
+    os.system('cls')
+    print(f"\nNuevo curso ingresado a la carrera {carrera_seleccionada.nombre}\n\nNombre de curso: {curso_nombre}\n\nClave Matriculacion: {clave_matriculacion}\n\nCódigo del Curso: {nuevo_curso.codigo}\n")
     
     
 def cursos_dictados(profesor_encontrado):
+    os.system('cls')
     if not profesor_encontrado.cursos:
         print("Aun no tienes registrado un curso para dictar.")
     else:
@@ -248,6 +262,7 @@ def cursos_dictados(profesor_encontrado):
             print("Opción inválida, por favor ingrese una opción que sea numérica.")
 
 def agregar_archivo_a_curso(curso):
+    os.system('cls')
     nombre_archivo = input("Ingrese el nombre del archivo: ")
     formato_archivo = input("Ingrese el formato del archivo: ")
     formato_archivo_limpio = formato_archivo.replace(".", "")
@@ -256,10 +271,11 @@ def agregar_archivo_a_curso(curso):
     print("Archivo agregado con éxito.")
 
 #MENU APP 
-print("Bienvenido, las opciones son: \n")
 respuesta = ""
 
 def menu():
+    os.system('cls')
+    print("Bienvenido, las opciones son: \n")
     print("1.- Ingresar como estudiante")
     print("2.- Ingresar como profesor")
     print("3.- Ver cursos")

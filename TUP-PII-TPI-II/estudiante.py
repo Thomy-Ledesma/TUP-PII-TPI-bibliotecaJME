@@ -24,19 +24,19 @@ class Estudiante(Usuario):
         if clave_matriculacion == curso.clave:
             if curso not in self.cursos:
                 self.cursos.append(curso)
-                validar = f"Matriculación en el curso {curso.nombre} exitosa!"
+                validar = f"\nMatriculación en el curso {curso.nombre} exitosa!\n"
             else:
-                validar = f"Ya se encuentra matriculado en el curso {curso.nombre}."
+                validar = f"\nYa se encuentra matriculado en el curso {curso.nombre}.\n"
         else:
-            validar ="Matriculacion fallida. La contraseña ingresada es incorrecta."
+            validar ="\nMatriculacion fallida. La contraseña ingresada es incorrecta.\n"
         print(validar)
     
     def desmatricular_curso(self, curso: Curso, clave_matriculacion: str):
         if clave_matriculacion == curso.clave:
             self.cursos.remove(curso)
-            validar = f"Desmatriculación en el curso {curso.nombre} exitosa!"
+            validar = f"\nDesmatriculación en el curso {curso.nombre} exitosa!\n"
         else:
-            validar ="Desmatriculacion fallida. La contraseña ingresada es incorrecta."
+            validar ="\nDesmatriculacion fallida. La contraseña ingresada es incorrecta.\n"
         print(validar)
         
         
