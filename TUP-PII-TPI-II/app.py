@@ -55,7 +55,15 @@ def ingresar_estudiante(estudiantes):
             print("Error de ingreso, vuelva a intentar.")
     else:
         print("Alumno inexistente. Debe darse de alta!")
-    
+
+def registrar_profesor():
+    profe_nombre = input("ingrese el nombre: ")
+    profe_apellido = input("ingrese el apellido: ")
+    profe_mail = input("ingrese el mail: ")
+    profe_password = input("ingrese la contraseña: ")
+    profe_titulo = input("ingrese el titulo: ")
+    yearprofe = int(input("ingrese el año de egreso: "))
+    profesores.append(Profesor(profe_nombre,profe_apellido,profe_mail,profe_password,profe_titulo,yearprofe))   
     
 def ingresar_profesor(profesores):
     
@@ -103,7 +111,12 @@ def ingresar_profesor(profesores):
         else:
             print("Error de ingreso, vuelva a intentar.")
     else:
-        print("Alumno inexistente. Debe darse de alta!")
+        codigo_admin = input("Profesor inexistente. Ingrese el código de Admin para darse de alta: ")
+        if codigo_admin == Profesor.codigo_admin:
+            registrar_profesor()
+        else:
+            print("Código incorrecto :(")
+
 
 def matricularse_a_un_curso(estudiante_encontrado):
     if not carreras:
@@ -122,14 +135,23 @@ def ver_cursos(carreras, readonly = False):
         for carrera in carreras:
             print(f"{i} - {carrera.nombre}")
             i += 1
-        carrera_seleccionada = int(input("Seleccione la carrera: ")) - 1
+        while True:
+            carrera_seleccionada = input("Seleccione la carrera: ")
+            if carrera_seleccionada.isdigit() and 0 <= int(carrera_seleccionada) < len(carreras) :
+                break
+            else:
+                print("Selección inválida. Por favor, elija una opción válida.")
         i = 1
-        for curso in carreras[carrera_seleccionada].cursos:
+        for curso in carreras[int(carrera_seleccionada)].cursos:
             print(f"{i} - {curso.nombre}")
             i += 1
-        if readonly == False:
-            curso_seleccionado = int(input("ingrese el número de la carrera a la que se desea matricular: ")) - 1
-            return carreras[carrera_seleccionada].cursos[curso_seleccionado]
+        if not readonly:
+            while True:
+                curso_seleccionado = int(input("Ingrese el número del curso al que se desea matricular: ")) - 1
+                if 0 <= curso_seleccionado < len(carreras[carrera_seleccionada].cursos):
+                    return carreras[carrera_seleccionada].cursos[curso_seleccionado]
+                else:
+                    print("Selección inválida. Por favor, elija una opción válida.")
         
 
 def cursos_inscripto(estudiante_encontrado, desmatricular = False):
@@ -183,7 +205,7 @@ def dictar_un_curso(profesor, carreras):
             return
     
     #Crear una instancia de Curso para generar la contraseña
-    clave_matriculacion = generar_clave()  # Llama al método desde la clase Curso
+    clave_matriculacion = Curso.generar_clave()  # Llama al método desde la clase Curso
     nuevo_curso = Curso(curso_nombre, clave_matriculacion)
     
     # Agregar el curso a la lista de cursos de la carrera

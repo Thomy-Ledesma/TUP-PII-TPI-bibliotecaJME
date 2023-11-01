@@ -2,6 +2,8 @@ from usuario import *
 from carrera import Carrera
 
 class Profesor(Usuario):
+    codigo_admin = "Admin123"
+
     def __init__(self, nombre: str, apellido: str, email: str, contrasena: str, titulo: str, anio_egreso: int):
         super().__init__(nombre, apellido, email, contrasena)
         self.__titulo = titulo

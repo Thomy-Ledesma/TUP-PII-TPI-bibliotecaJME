@@ -15,6 +15,7 @@ class Estudiante(Usuario):
     @property
     def anio_inscripcion_carrera(self):
         return self.__anio_inscripcion_carrera
+    
        
     def __str__(self):
         return f" Nombre: {self.nombre}\n Apellido: {self.apellido}\n Email: {self.email}"
@@ -28,7 +29,7 @@ class Estudiante(Usuario):
                 validar = f"Ya se encuentra matriculado en el curso {curso.nombre}."
         else:
             validar ="Matriculacion fallida. La contraseña ingresada es incorrecta."
-        return validar
+        print(validar)
     
     def desmatricular_curso(self, curso: Curso, clave_matriculacion: str):
         if clave_matriculacion == curso.clave:
