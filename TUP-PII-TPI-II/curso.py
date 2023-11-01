@@ -57,12 +57,14 @@ curso2 = Curso("Ingles", "222")
 curso3 = Curso("Arquitectura de las Computadoras", "333")
 curso4 = Curso("Programacion", "444")
 
-
 archivo1 = Archivo("tp1","pdf")
 archivo2 = Archivo("tp2","docx")
+archivo3 = Archivo("abc", "xls")
+archivo4 = Archivo("efg", "jpge")
 
 curso1.nuevo_archivo(archivo1)
-
 curso1.nuevo_archivo(archivo2)
+curso3.nuevo_archivo(archivo3)
+curso4.nuevo_archivo(archivo4)
 
 

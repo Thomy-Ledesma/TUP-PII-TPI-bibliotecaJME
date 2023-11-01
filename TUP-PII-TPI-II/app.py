@@ -24,8 +24,8 @@ def ingresar_estudiante(estudiantes):
             respuesta = ""
             def menu():
                 print("1 - Matricularse a un curso.")
-                print("2- Desmatricularse de un curso.")
-                print(f"3 - Ver cursos inscriptos")
+                print("2 - Desmatricularse de un curso.")
+                print("3 - Ver cursos inscriptos")
                 print("4 - Volver al menu principal")
                 
             while respuesta != "Salir":
@@ -136,22 +136,30 @@ def ver_cursos(carreras, readonly = False):
             print(f"{i} - {carrera.nombre}")
             i += 1
         while True:
-            carrera_seleccionada = input("Seleccione la carrera: ")
-            if carrera_seleccionada.isdigit() and 0 <= int(carrera_seleccionada) < len(carreras) :
-                break
+            input_carrera = input("Seleccione la carrera: ")
+            if input_carrera.isnumeric():
+                carrera_seleccionada = int(input_carrera)-1
+                if 0 <= carrera_seleccionada <= len(carreras):
+                    break
+                else:
+                    print("Selección inválida. Por favor, elija una opción válida.")
             else:
-                print("Selección inválida. Por favor, elija una opción válida.")
+                print("Selección inválida. Por favor, seleccione un numero.")
         i = 1
         for curso in carreras[int(carrera_seleccionada)].cursos:
             print(f"{i} - {curso.nombre}")
             i += 1
         if not readonly:
             while True:
-                curso_seleccionado = int(input("Ingrese el número del curso al que se desea matricular: ")) - 1
-                if 0 <= curso_seleccionado < len(carreras[carrera_seleccionada].cursos):
-                    return carreras[carrera_seleccionada].cursos[curso_seleccionado]
+                input_usuario = input("Ingrese el número del curso al que se desea matricular: ")
+                if input_usuario.isnumeric():
+                    curso_seleccionado = int(input_usuario) -1
+                    if 0 <= curso_seleccionado < len(carreras[carrera_seleccionada].cursos):
+                        return carreras[carrera_seleccionada].cursos[curso_seleccionado]
+                    else:
+                        print("Selección inválida. Por favor, elija una opción válida.")
                 else:
-                    print("Selección inválida. Por favor, elija una opción válida.")
+                    print("Por favor, ingrese un número válido.")
         
 
 def cursos_inscripto(estudiante_encontrado, desmatricular = False):
@@ -181,7 +189,7 @@ def dictar_un_curso(profesor, carreras):
 
     while True:
         seleccion_carrera = input("Seleccione una carrera para el curso (ingrese el número): ")
-        if seleccion_carrera.isdigit():
+        if seleccion_carrera.isnumeric():
             seleccion_carrera = int(seleccion_carrera)
             if 1 <= seleccion_carrera <= len(carreras):
                 carrera_seleccionada = carreras[seleccion_carrera - 1]
@@ -224,7 +232,7 @@ def cursos_dictados(profesor_encontrado):
             print(f"{i}.- {curso.nombre}")
             
         opcion = input("Seleccione el número del curso para ver más detalles: ")
-        if opcion.isdigit():
+        if opcion.isnumeric():
             indice_curso = int(opcion) - 1
             if 0 <= indice_curso < len(profesor_encontrado.cursos):
                 curso_seleccionado = profesor_encontrado.cursos[indice_curso]
@@ -242,7 +250,8 @@ def cursos_dictados(profesor_encontrado):
 def agregar_archivo_a_curso(curso):
     nombre_archivo = input("Ingrese el nombre del archivo: ")
     formato_archivo = input("Ingrese el formato del archivo: ")
-    nuevo_archivo = Archivo(nombre_archivo, formato_archivo)
+    formato_archivo_limpio = formato_archivo.replace(".", "")
+    nuevo_archivo = Archivo(nombre_archivo, formato_archivo_limpio)
     curso.nuevo_archivo(nuevo_archivo)
     print("Archivo agregado con éxito.")
 
